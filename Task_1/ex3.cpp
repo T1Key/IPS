@@ -10,13 +10,13 @@
 
 using namespace std;
 
-//подынтегральная функция
+//РїРѕРґС‹РЅС‚РµРіСЂР°Р»СЊРЅР°СЏ С„СѓРЅРєС†РёСЏ
 double my_fun(double x)
 {
 	return 4 / ((1 + x * x) * (1 + x * x));
 }
 
-//метод Симпсона с автоматическим параллелизатором
+//РјРµС‚РѕРґ РЎРёРјРїСЃРѕРЅР° СЃ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёРј РїР°СЂР°Р»Р»РµР»РёР·Р°С‚РѕСЂРѕРј
 double pragma_no_vector_simpson(int n)
 {
 	double left = -1;
@@ -24,14 +24,14 @@ double pragma_no_vector_simpson(int n)
 	double sum = 0;
 
 	double step = (right - left) / n;
-	//автоматический параллелизатор
+	//Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёР№ РїР°СЂР°Р»Р»РµР»РёР·Р°С‚РѕСЂ
 #pragma loop(hint_parallel(0))
 	for (int i = 0; i < n; i++) {
 		const double x1 = left + i * step;
 		const double x2 = left + (i + 1)*step;
 		sum += (x2 - x1) / 6.0*(my_fun(x1) + 4.0*my_fun(0.5*(x1 + x2)) + my_fun(x2));
 	}
-	printf("Значение методом Симпсона : %.15f | Разбиение n = : %d\n", sum, n);
+	printf("Р—РЅР°С‡РµРЅРёРµ РјРµС‚РѕРґРѕРј РЎРёРјРїСЃРѕРЅР° : %.15f | Р Р°Р·Р±РёРµРЅРёРµ n = : %d\n", sum, n);
 	return sum;
 }
 
@@ -47,7 +47,7 @@ int main()
 		double trap = pragma_no_vector_simpson(i);
 		high_resolution_clock::time_point t2 = high_resolution_clock::now();
 		duration<double> duration = (t2 - t1);
-		cout << "Время работы : " << duration.count() << " seconds\n" << endl;
+		cout << "Р’СЂРµРјСЏ СЂР°Р±РѕС‚С‹ : " << duration.count() << " seconds\n" << endl;
 	}
 	return 0;
 }
