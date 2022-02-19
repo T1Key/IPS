@@ -10,7 +10,7 @@
 
 using namespace std;
 
-//подынтегральная функция
+//РїРѕРґС‹РЅС‚РµРіСЂР°Р»СЊРЅР°СЏ С„СѓРЅРєС†РёСЏ
 double my_fun(double x)
 {
 	return 4 / ((1 + x * x) * (1 + x * x));
@@ -21,11 +21,11 @@ double reshenie_analitic()
 	double a = 0;
 	double b = 1;
 	double area = 2 * ((2 * atan(b)) + (2 * b) / (1 + b * b)) - ((2 * atan(a)) + (2 * a) / (1 + a * a));
-	printf("Аналитическое значение интеграла : %.15f\n", area);
+	printf("РђРЅР°Р»РёС‚РёС‡РµСЃРєРѕРµ Р·РЅР°С‡РµРЅРёРµ РёРЅС‚РµРіСЂР°Р»Р° : %.15f\n", area);
 	return area;
 }
 
-//метод Симпсона
+//РјРµС‚РѕРґ РЎРёРјРїСЃРѕРЅР°
 double simpson(int n)
 {	
 	double left		= -1; 
@@ -38,7 +38,7 @@ double simpson(int n)
 		const double x2 = left + (i + 1)*step;
 		sum += (x2 - x1) / 6.0*(my_fun(x1) + 4.0*my_fun(0.5*(x1 + x2)) + my_fun(x2));
 	}
-	printf("Значение методом Симпсона : %.15f | Разбиение n = : %d\n", sum, n);
+	printf("Р—РЅР°С‡РµРЅРёРµ РјРµС‚РѕРґРѕРј РЎРёРјРїСЃРѕРЅР° : %.15f | Р Р°Р·Р±РёРµРЅРёРµ n = : %d\n", sum, n);
 	return sum;
 }
 
@@ -54,14 +54,14 @@ int main()
 		double trap = simpson(i);
 		high_resolution_clock::time_point t2 = high_resolution_clock::now();
 		duration<double> duration = (t2 - t1);
-		cout <<  "Время работы : " << duration.count() << " seconds\n" << endl;
+		cout <<  "Р’СЂРµРјСЏ СЂР°Р±РѕС‚С‹ : " << duration.count() << " seconds\n" << endl;
 	}	
 
 	high_resolution_clock::time_point t1 = high_resolution_clock::now();
 	reshenie_analitic();
 	high_resolution_clock::time_point t2 = high_resolution_clock::now();
 	duration<double> duration = (t2 - t1);
-	cout << "Время работы : " << duration.count() << " seconds\n" << endl;
+	cout << "Р’СЂРµРјСЏ СЂР°Р±РѕС‚С‹ : " << duration.count() << " seconds\n" << endl;
 
 	return 0;
 }
