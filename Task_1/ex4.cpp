@@ -8,7 +8,7 @@
 
 using namespace std;
 
-//метод Симпсона
+//РјРµС‚РѕРґ РЎРёРјРїСЃРѕРЅР°
 void simpson_p(double left, double right, int n, double& simpson_integral)
 {
 	const double width = (right - left) / n;
@@ -29,8 +29,8 @@ int main()
 	setlocale(LC_ALL, "Russian");
 	using namespace std::chrono;
 	using namespace std;
-	//Расчет методом Симпсона в четырёх потоках
-	cout << "Метод Симпсона в четырёх потоках:" << endl;
+	//Р Р°СЃС‡РµС‚ РјРµС‚РѕРґРѕРј РЎРёРјРїСЃРѕРЅР° РІ С‡РµС‚С‹СЂС‘С… РїРѕС‚РѕРєР°С…
+	cout << "РњРµС‚РѕРґ РЎРёРјРїСЃРѕРЅР° РІ С‡РµС‚С‹СЂС‘С… РїРѕС‚РѕРєР°С…:" << endl;
 	for (int i = 100; i <= 1000000; i = i * 10)
 	{
 		double area1 = 0;
@@ -38,7 +38,7 @@ int main()
 		double area3 = 0;
 		double area4 = 0;
 		high_resolution_clock::time_point t1 = high_resolution_clock::now();
-		//четыре области для четырёх потоков
+		//С‡РµС‚С‹СЂРµ РѕР±Р»Р°СЃС‚Рё РґР»СЏ С‡РµС‚С‹СЂС‘С… РїРѕС‚РѕРєРѕРІ
 		std::thread thr1(simpson_p, -1, -0.5, i, std::ref(area1));
 		std::thread thr2(simpson_p, -0.5, 0, i, std::ref(area2));
 		std::thread thr3(simpson_p, 0, 0.5, i, std::ref(area3));
@@ -48,10 +48,10 @@ int main()
 		thr3.join();
 		thr4.join();
 		double area = area1 + area2 + area3 + area4;
-		printf("Значение методом Симпсона : %.15f | Разбиение n = : %d\n", area, i);
+		printf("Р—РЅР°С‡РµРЅРёРµ РјРµС‚РѕРґРѕРј РЎРёРјРїСЃРѕРЅР° : %.15f | Р Р°Р·Р±РёРµРЅРёРµ n = : %d\n", area, i);
 		chrono::high_resolution_clock::time_point t2 = chrono::high_resolution_clock::now();
 		chrono::duration <double> duration = (t2 - t1);
-		cout << "Время работы : " << duration.count() << " seconds\n" << endl;
+		cout << "Р’СЂРµРјСЏ СЂР°Р±РѕС‚С‹ : " << duration.count() << " seconds\n" << endl;
 	}
 
 	return 0;
